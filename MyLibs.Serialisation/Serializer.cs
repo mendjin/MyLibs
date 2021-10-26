@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MyLibs.Serialisation
 {
@@ -9,8 +10,8 @@ namespace MyLibs.Serialisation
         {
           using(StreamWriter file =new StreamWriter(path,true) )
             {
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.serialize(file, data);
+               BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(file.BaseStream, data);
 
 
 
@@ -21,7 +22,7 @@ namespace MyLibs.Serialisation
             using (StreamReader file = new StreamReader(path))
             {
                 BinaryFormatter bf = new BinaryFormatter();
-               return T bf.Deserialize(file, data);
+               return (T) bf.Deserialize(file.BaseStream);
             }
     }
 }
